@@ -21,7 +21,7 @@
 ## 📦 Overview
 
 | Agent-Systems | Car Control | Travel & Navigation | Search & Information | Chit-Chat |Vehicle Knowledge & Q&A | Sloter Success | Talk Smoothness | Persalization | 
-|---------|--------------|----------|-------------|-----------|-----------|
+|---------|--------------|----------|-------------|-----------|-----------|-----------|-----------|-----------|
 | **GPT-5-Varients** | 79.61(0-100) | 79.33 | 80.54 | 79.21 | 79.79 | 0.72(0-1) | 0.78 | 0.75 |
 | **Qwen-Think-Varients** | 51.46 | 51.91 | 51.75 | 50.18 | 51.33 | 0.43 | 0.47 | 0.52 |
 | **Doubao-Think-Varients** | 49.37 | 50.12 | 49.88 | 50.45 | 49.71 | 0.46 | 0.42 | 0.48 |
