@@ -107,7 +107,7 @@ Each dialogue contains contextual state tracking and agent strategy.
 | Module | Samples | Avg. Turns | Modalities | Labels |
 |---------|----------|-------------|-------------|---------|
 | Intent Classification | 250 K + | 1 | Text | Intent |
-| Interactive Agent | 130 K + | 3–7 | Text | Intent + Strategy |
+| Interactive Agent | 130 K + | 2–5 | Text | Intent + Strategy |
 | Hierarchical Agent | 70 K + | Variable | Speech + Text | Emotion + Context + Slots |
 
 ---
