@@ -1,102 +1,72 @@
-# 🚗 In-Car Intelligent Interaction Agent Dataset V1
+# 🚗 In-Car Intelligent Interaction Agent Dataset V1.2
 
-**Car Intelligent Interaction Agent Dataset V1**  
-A large-scale, open-source Chinese dataset for **in-vehicle intelligent interaction**, designed to support research and development of **voice assistants, multi-turn dialogue systems, and emotion-aware car agents**.
+*A large-scale, multi-modal Chinese dataset for vehicle intent recognition, multi-turn dialogue, and emotion-aware in-car AI assistants.*
+
+---
+
+## 🆕 What’s New in V1.2
+
+| Update | Description |
+|---------|--------------|
+| 🗣️ **User Personalization** | Each utterance in the Personalized Style such as humor, brevity, empathy. |
+| 😊 **Joint Intent Recognition, Sloter and Personlization and Chatting in the Agent System** | Together, these components in the Hierarchical Agent System enable the agent to deliver context-aware, human-like interactions that seamlessly blend task execution with natural conversation, creating a personalized and intelligent in-car experience. |
+| 🧩 **LLM Training-Free Modules** | Efficiant RL Training outside of LLM Parameters in Typical Agent Modules, enabling continual improvement of agent behavior without retraining the entire large language model.|
+| 🔊 **Self-Score and Perference** | Build new Self-Score and Custom Perference modules for User Personlization, dynamically evaluate user satisfaction and adapt interactions based on individual preferences, enhancing personalized dialogue and task execution. |
+| 🧠 **Benchmarking in Comparison with SOTAs** | Evaluates the agent system against state-of-the-art models across key metrics such as intent recognition accuracy|
+| 🧰 **Schema v2.0** | Unified schema across all modules for easier fine-tuning. |
+| 🪶 **Cleaned Text** | Enhanced Chinese punctuation normalization and slang handling. |
 
 ---
 
 ## 📦 Overview
 
-| Module | Description                                                                    | Samples | Categories |
-|--------|--------------------------------------------------------------------------------|----------|-------------|
-| **Vehicle Intent Classification Dataset** | Car command & intent recognition                                               | 200K+ | 100+ |
-| **In-Vehicle Interactive Agent Dataset** | Multi-turn human–agent dialogues                                               | 100K+ | 5 main classes |
-| **Hierarchical In-Vehicle Agent Dataset** | Speech transcription, emotion, context understadning, fine-grained annotations | 50K+ | Multi-level labels |
+| Agent-Systems | Car Control | Travel & Navigation | Search & Information | Chit-Chat |Vehicle Knowledge & Q&A | Sloter Success | Talk Smoothness | Persalization | 
+|---------|--------------|----------|-------------|-----------|-----------|
+| **GPT-5-Varients** | 79.61(0-100) | 79.33 | 80.54 | 79.21 | 79.79 | 0.72(0-1) | 0.78 | 0.75 |
+| **Qwen-Think-Varients** | 51.46 | 51.91 | 51.75 | 50.18 | 51.33 | 0.43 | 0.47 | 0.52 |
+| **Doubao-Think-Varients** | 49.37 | 50.12 | 49.88 | 50.45 | 49.71 | 0.46 | 0.42 | 0.48 |
+| **Qwen-Think-Ours** | 94.27 | 95.83 | 94.91 | 95.14 | 94.66 | 0.82 | 0.89 | 0.85 |
+| **Doubao-Thibk-Ours** | 92.45 | 93.12 | 92.87 | 93.54 | 92.31 | 0.89 | 0.84 | 0.87 |
 
 ---
 
-## 🧠 Dataset Structure
+## 🚙 1. Vehicle Intent Classification
 
+**Goal:** classify Chinese in-car utterances into 100 + fine-grained vehicle intents.
+
+### Main Categories
+1. **Car Control** – A/C, windows, lights, seats.  
+2. **Travel & Navigation** – routing, traffic, parking, refueling.  
+3. **Search & Information** – media, weather, POI search.  
+4. **Chit-Chat** – casual or emotional conversation.  
+5. **Vehicle Knowledge & Q&A** – maintenance, driving tips.  
+
+**Example**
+```json
+{
+  "text": "打开副驾驶的座椅加热",
+  "intent_category": "Car Control",
+  "sub_intent": "Seat Heating",
+  "slots": {"position": "front passenger"}
+}
 ```
-Car-Interaction-Agent-Dataset-V1/
-│
-├── 1_intent_classification/             # Vehicle Intent Classification Dataset
-│   ├── data.json
-│   ├── label_schema.json
-│   └── examples/
-│
-├── 2_interactive_agent_dataset/         # In-Vehicle Interactive Agent Dataset
-│   ├── dialogues.json
-│   ├── multi_turn_samples/
-│   └── scenarios/
-│
-├── 3_hierarchical_agent_dataset/        # Hierarchical Interaction Agent Dataset
-│   ├── speech_transcription/            # Transcribed speech text
-│   ├── emotion_annotations/             # Emotion labels
-│   ├── context_understanding/           # Contextual understanding
-│   └── fine_grained_examples/           # Slot-level examples
-│
-└── README.md
-```
-
----
-
-## 🚙 1. Vehicle Intent Classification Dataset
-
-### 🏷️ Five Major Intent Categories
-1. **Car Control**  
-   Vehicle control commands such as air conditioning, windows, sunroof, lights, and seats.  
-   - Example:  
-     - “Turn on the A/C and set to 25 degrees.”  
-     - “Close the right rear window.”
-
-2. **Travel & Navigation**  
-   Navigation, route planning, traffic info, parking, fuel/charging stations, etc.  
-   - Example:  
-     - “Navigate to the nearest charging station.”  
-     - “How long will it take to get to work tomorrow morning?”
-
-3. **Search & Information**  
-   Music, weather, restaurant, news, or POI search.  
-   - Example:  
-     - “Play Jay Chou’s songs.”  
-     - “Find good Japanese restaurants nearby.”
-
-4. **Chit-Chat**  
-   Casual conversations and emotional engagement with the in-car assistant.  
-   - Example:  
-     - “How are you today?”  
-     - “I’m tired, talk to me.”
-
-5. **Vehicle Knowledge & Q&A**  
-   Questions about car usage, maintenance, and driving tips.  
-   - Example:  
-     - “What should I do if tire pressure is low?”  
-     - “How to enable cruise control?”
-
-> ✅ Includes **100+ fine-grained intent subcategories**, covering all major in-car voice assistant scenarios.
 
 ---
 
 ## 🗣️ 2. In-Vehicle Interactive Agent Dataset
 
-This module focuses on **multi-turn interactions** between the user and the in-car assistant, simulating realistic dialogue flow.
+**Focus:** realistic multi-turn dialogues between drivers and assistants.  
+Each dialogue contains contextual state tracking and agent strategy.
 
-Each dialogue sample includes:
-- User query or speech transcription  
-- Agent clarification or response  
-- Contextual history tracking  
-- Dialogue type label (Car Control / Travel / Search / Chat / Knowledge)
-
-**Example:**
+**Example**
 ```json
 {
-  "dialogue_id": "T00087",
+  "dialogue_id": "D03125",
   "turns": [
-    {"role": "user", "text": "It’s a bit hot."},
-    {"role": "agent", "text": "Would you like me to lower the temperature?"},
-    {"role": "user", "text": "Yes, set it to 24 degrees."},
-    {"role": "agent", "text": "Got it, setting A/C to 24 degrees now."}
+    {"role": "user", "text": "有点热。"},
+    {"role": "agent", "text": "要我调低温度吗？", "strategy": "confirmation"},
+    {"role": "user", "text": "好，设到二十四度。"},
+    {"role": "agent", "text": "好的，空调已调到24度。", "strategy": "task_completion"}
   ],
   "category": "Car Control"
 }
@@ -106,25 +76,27 @@ Each dialogue sample includes:
 
 ## 🧩 3. Hierarchical In-Vehicle Agent Dataset
 
-This module focuses on **multi-level annotations** to enhance agent understanding, including:
-- 🎧 **Speech Transcription** (manually verified ASR text)
-- 😊 **Emotion Labels** (sentiment and emotional response)
-- 🔁 **Context Understanding** (elliptical intent resolution and history tracking)
-- 🔍 **Fine-Grained Examples** (slot-level and semantic-level details)
+**Focus:** multi-modal annotation for deep contextual understanding.
 
-**Example:**
+**Annotations**
+- 🎧 **Speech Transcription** (verified ASR)  
+- 😊 **Emotion Labels** (5-class taxonomy)  
+- 🔁 **Context Reasoning** (co-reference + elliptical intent)  
+- 🧱 **Fine-Grained Slots** (action/target/parameter)  
+
+**Example**
 ```json
 {
-  "utterance_id": "E10492",
-  "speech_transcription": "Open the window.",
-  "emotion": "calm",
-  "context": "Driver just started the car.",
-  "intent": {
-    "category": "Car Control",
-    "target": "window",
-    "action": "open",
-    "slot": {"position": "driver side"}
-  }
+  "utterance_id": "E20781",
+  "speech_file": "audio/E20781.wav",
+  "speech_transcription": "打开天窗。",
+  "emotion": "neutral",
+  "context_description": "用户刚启动车辆。",
+  "intent_category": "Car Control",
+  "intent_action": "open",
+  "intent_target": "sunroof",
+  "slots": {"position": "front"},
+  "asr_alignment": {"start_ms": 0, "end_ms": 1220}
 }
 ```
 
@@ -132,78 +104,77 @@ This module focuses on **multi-level annotations** to enhance agent understandin
 
 ## 📊 Statistics
 
-| Module | Samples | Avg. Turns | Annotation Dimensions |
-|---------|----------|-------------|------------------------|
-| Intent Classification | 200K+ | Single-turn | Intent Label |
-| Interactive Agent | 100K+ | 2–6 turns | Intent + Response |
-| Hierarchical Agent | 50K+ | Multi-modal | Speech + Emotion + Context |
+| Module | Samples | Avg. Turns | Modalities | Labels |
+|---------|----------|-------------|-------------|---------|
+| Intent Classification | 250 K + | 1 | Text | Intent |
+| Interactive Agent | 130 K + | 3–7 | Text | Intent + Strategy |
+| Hierarchical Agent | 70 K + | Variable | Speech + Text | Emotion + Context + Slots |
 
 ---
 
 ## 💡 Applications
 
-- Vehicle intent recognition & command understanding  
+- Vehicle intent detection  
 - Multi-turn dialogue management  
-- Emotion-aware car assistant design  
-- Hierarchical reasoning and contextual agent learning  
-- Multi-modal human–vehicle interaction research  
+- Emotion-aware agent response generation  
+- Contextual reasoning and elliptical intent resolution  
+- Multimodal in-car AI assistant training  
 
 ---
 
 ## 🧰 Usage
 
-```bash
-# Clone the repository
-git clone https://github.com/your-org/Car-Interaction-Agent-Dataset-V1.git
-
-# Load sample data
+```python
 import json
 
 with open('1_intent_classification/data.json', 'r', encoding='utf-8') as f:
-    data = json.load(f)
-    print(data[0])
+    samples = json.load(f)
+    print(samples[0])
 ```
 
 ---
 
-## 📅 Version Plan
+## 📅 Version History
 
-| Version | Content                                                  | Status     |
-|----------|----------------------------------------------------------|------------|
-| **V1.0** | Base Intent + Multi-turn Dialogue + Hierarchical Dataset | ✅ Released |
-| **V1.1** | Coming Soon                                              | Qct 2025   |
+| Version | Key Features | Release |
+|----------|--------------|----------|
+| **V1.1** | DataSet-V1 and Non-Commercial API Release| 2025 10 16 |
+| **V1.2** | Benchmark-V1, Joint and Personalization Release | 2025 10 20 |
 
-## 🚀 Getting Started
-- [✅] To apply for dataset downloads for academic research purposes only, please email <a href="mailto:deepreasoninggo@gmail.com">deepreasoninggo@gmail.com</a> **and** <a href="https://drive.google.com/file/d/1F46UhKrqP9TvJAyMzmuk-xWwxcuWWSJj/view?usp=sharing" target="_blank" rel="noopener noreferrer">fill out this form</a>.  
 ---
 
-## 🧾 License
+## 🚀 Getting Started
+- [✅] To apply for dataset downloads and api for academic research purposes only, please email <a href="mailto:deepreasoninggo@gmail.com">deepreasoninggo@gmail.com</a> **and** <a href="https://drive.google.com/file/d/1F46UhKrqP9TvJAyMzmuk-xWwxcuWWSJj/view?usp=sharing" target="_blank" rel="noopener noreferrer">fill out this form</a>.  
 
-- This dataset is released for **research and commercial use**.  
-- Please cite as:  
-@misc{Di2025_InCarIntelligentInteractionAgentDatasetV1,
-  author       = {Di, Xinhan},
-  title        = {In-Car Intelligent Interaction Agent Dataset V1},
+## 📜 License
+
+**License:** CC-BY 4.0  
+Free for research and commercial use with proper attribution.
+
+---
+
+## 📚 Citation
+
+```bibtex
+@dataset{di2025_incar_interaction_agent_v1_2,
+  author       = {Xinhan Di},
+  title        = {In-Car Intelligent Interaction Agent Dataset V1.2},
   year         = {2025},
-  howpublished = {\url{https://scholar.google.com/citations?hl=en&user=CDijR8YAAAAJ}},
-  note         = {Dataset}
+  url          = {https://github.com/your-org/Car-Interaction-Agent-Dataset-V1},
+  note         = {Dataset, Version 1.2},
 }
-
+```
 
 ---
 
 ## 🤝 Acknowledgements
 
-Special thanks to all contributors who supported the creation of this dataset and the advancement of in-car intelligent interaction research.
+Special thanks to all annotators, engineers, and collaborators contributing to in-car intelligent-interaction research.
 
 ---
 
 ## 📧 Contact
 
-- Maintainer: [Xinhan Di]  
-- Email: deepreasoningo@gmail.com  
-- GitHub: [https://github.com/your-org/Car-Interaction-Agent-Dataset-V1](https://github.com/your-org/Car-Interaction-Agent-Dataset-V1)
-
----
-
-> © 2025 Deepgo. All rights reserved.
+- **Maintainer:** Xinhan Di  
+- **Email:** [deepreasoningo@gmail.com](mailto:deepreasoningo@gmail.com)  
+- **GitHub:** [https://github.com/your-org/Car-Interaction-Agent-Dataset-V1](https://github.com/your-org/Car-Interaction-Agent-Dataset-V1)
