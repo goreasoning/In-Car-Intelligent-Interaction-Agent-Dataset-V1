@@ -19,11 +19,11 @@
 ## 📦 Overview
 
 | Agent-Systems **Colloquialism Covery(>60%), Multi-turn Agent Reasoning Covery(>60%)** |Car Control | Travel & Navigation | Search & Information | Chit-Chat | Vehicle Knowledge & Q&A | Standardlization Ratio | Sandardlization Semantic Accuracy | Sloter Success | Talk Smoothness(Text) | Talk Emotional Reasoning(Text) | Talk Emotional Reasoning(Voice) | Persalization | 
-|---------|--------------|----------|-------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
-| **GPT-5-Varients** | 80.10(0-100) | 80.53 | 81.39 | 81.02 | 81.15 | 0.81(0-1) | 0.80 | 0.79| 0.77| 0.81| 0.78| 0.76| 0.71 |
-| **Qwen-Think-Varients(Agent-Learning-Common,Agents<=3B)** | 60.90 | 61.29 | 61.27 | 60.51 | 61.59 | 0.62 | 0.59 | 0.58 | 0.61 | 0.60 | 0.63 | 0.58  0.61 |
-| **Doubao-Think-Varients(Agent-Learning-Common,Agents-flash)** | 60.49 | 61.35 | 60.10 | 60.22 | 61.84 | 0.61 | 0.57 | 0.60 | 0.59| 0.58| 0.61| 0.59 | 0.60 |
-| **Ours-v1.2-Agents-Learning-V0,Agent-flash** | 92.37 | 93.85 | 92.63 | 93.19 | 92.91 | 0.93 | 0.92  | 0.92 | 0.91 | 0.91 | 0.92 | 0.91 | 0.92 |
+|---------|--------------|----------|-------------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+| **GPT-5-Varients** | 80.10(0-100) | 80.53 | 81.39 | 81.02 | 81.15 | 0.81(0-1) | 0.80 | 0.79| 0.77| 0.81| 0.78| 0.76|
+| **Qwen-Think-Varients(Agent-Learning-Common,Agents<=3B)** | 60.90 | 61.29 | 61.27 | 60.51 | 61.59 | 0.62 | 0.59 | 0.58 | 0.61 | 0.60 | 0.63 | 0.58 |
+| **Doubao-Think-Varients(Agent-Learning-Common,Agents-flash)** | 60.49 | 61.35 | 60.10 | 60.22 | 61.84 | 0.61 | 0.57 | 0.60 | 0.59| 0.58| 0.61| 0.59 | 
+| **Ours-v1.2-Agents-Learning-V0,Agent-flash** | 92.37 | 93.85 | 92.63 | 93.19 | 92.91 | 0.93 | 0.92  | 0.92 | 0.91 | 0.91 | 0.92 | 0.91 |
 ---
 
 ## 🔊 Multi-Modal Demo V1.2 will be released soon:) Besides machine languages, I will provide **emotional benefits response ** to car **customers** through **supporting-emotion** text and voice languages :)
