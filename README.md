@@ -53,7 +53,7 @@
 |----------|--------------|----------|
 | **V1.0** | DataSet-V1 and Non-Commercial API Release| 2025 10 16 |
 | **V1.1** | Benchmark-V1.1, Joint and Personalization Release | 2025 10 20 |
-| **V1.2** | Benchmark-V1.2, Multi-Modal Voice and Emotion Text Language Generation Release | 2025 10 27 |
+| **V1.2** | Benchmark-V1.2, Multi-Modal Voice and Emotion Text Language Generation Release | 2025 10 31 |
 
 ---
 
