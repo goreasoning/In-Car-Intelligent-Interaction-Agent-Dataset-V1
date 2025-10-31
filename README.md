@@ -72,7 +72,7 @@ Free for research and commercial use with proper attribution.
 ```bibtex
 @dataset{di2025_incar_interaction_agent_v1_3,
   author       = {Xinhan Di},
-  title        = {In-Car Intelligent Interaction Agent Dataset V1.3},
+  title        = {In-Car Intelligent Interaction Agent Dataset V1.2},
   year         = {2025},
   url          = {https://github.com/your-og/Car-Interaction-Agent-Dataset-V1},
   note         = {Dataset, Version 1.2},
