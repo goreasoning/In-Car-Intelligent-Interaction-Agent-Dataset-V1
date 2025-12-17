@@ -1,208 +1,136 @@
-# 🚗 In-Car Intelligent Interaction Agent Dataset V1
+# 🚗 Customer-Centric Interaction Agent-OS C0.1
 
-**Car Intelligent Interaction Agent Dataset V1**  
-A large-scale, open-source Chinese dataset for **in-vehicle intelligent interaction**, designed to support research and development of **voice assistants, multi-turn dialogue systems, and emotion-aware car agents**.
+*Comfort. Ease. Joy. Yours. *
 
----
+## 🆕 Customer-Centric in C0.1
+
+| Update                                                                                    | Description                                                                                                                                                                                                                          |
+|-------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 😊 **Customer Personlized Comfort**                                                       | An integrated agent system for **comforting customers**, delivering **200+** personalized comforts via **open-source** RL agents—**180x cheaper** than GPT-5.2-Pro.                                                                  |
+| 🧩 **Customer Satisfaction Score**                                                        | A **customer-centric** score to measure **satisfaction** in comfort-focused customers, **prioritizing comfort** over **accuracy** performance.                                                                                       |
+| 🧩 **Benchmarking in Comparison with Sotas**                                              | Comparison with Gemini-3-Pro-Preview, GPT-5.2, GPT-5.2-Chat, and GPT-5.2-Pro across both **5 scenarios** and **200+** personalized comforts metrics: accuracy, customer-centric satisfaction score, price/sample, and latency/sample. |
+| 🧠 **Support For Customer-Centric Training, Test, and Embedding Dataset Auto-Annotation** | **Personalized dataset** auto-collection with high-quality annotations for 200+ customer needs. **customer-centric annotation** support —**$30/W-Samples**.                                                          |
 
 ## 📦 Overview
 
-| Module | Description                                                                    | Samples | Categories |
-|--------|--------------------------------------------------------------------------------|----------|-------------|
-| **Vehicle Intent Classification Dataset** | Car command & intent recognition                                               | 200K+ | 100+ |
-| **In-Vehicle Interactive Agent Dataset** | Multi-turn human–agent dialogues                                               | 100K+ | 5 main classes |
-| **Hierarchical In-Vehicle Agent Dataset** | Speech transcription, emotion, context understadning, fine-grained annotations | 50K+ | Multi-level labels |
+| Agent-OS **30+** interaction samples for 365 days** | (Intent)5-Scenarios | (Intent)Over 200+ Scenes | (Intent)Satisfaction-Score1 | Ratio Latency/Single-LLM-API-Call | Price $/M Tokens | 
+|-----------------------------------------------------|---------------------|--------------------------|-----------------------------|-----------------------------------|------------------|
+| **GPT-5.2-Varients**                                | 69.49(0%-100%)      | 56.28                    | 57.14                       | 1.00                              | 15.75            | 
+| **GPT-5.2-Varients-Pro**                            | 69.09               | 55.31                    | 55.60                       | 1.00                              | 197              | 
+| **GPT-5.2-Varients-Chat**                           | 65.30               | 53.48                    | 54.08                       | 1.00                              | 15.75            | 
+| **Gemini-3-Pro-Preview**                            | 70.65               | 57.51                    | 58.41                       | 1.00                              | 14.00            |
+| **(Open-Source-LLM) Based RL-Agent-C0.1**           | 93.10               | 84.72                    | 85.92                       | 1.10                              | 1.1              | 
 
----
+## 🆕 (Intent)Satisfaction-Score1 Calculation
+### Customer-Centric Satisfaction Score
 
-## 🧠 Dataset Structure
+A weighted scoring system designed to evaluate model performance with a stronger emphasis on real-world customer experience, granularity of correctness, and natural language usage.
 
-```
-Car-Interaction-Agent-Dataset-V1/
-│
-├── 1_intent_classification/             # Vehicle Intent Classification Dataset
-│   ├── data.json
-│   ├── label_schema.json
-│   └── examples/
-│
-├── 2_interactive_agent_dataset/         # In-Vehicle Interactive Agent Dataset
-│   ├── dialogues.json
-│   ├── multi_turn_samples/
-│   └── scenarios/
-│
-├── 3_hierarchical_agent_dataset/        # Hierarchical Interaction Agent Dataset
-│   ├── speech_transcription/            # Transcribed speech text
-│   ├── emotion_annotations/             # Emotion labels
-│   ├── context_understanding/           # Contextual understanding
-│   └── fine_grained_examples/           # Slot-level examples
-│
-└── README.md
-```
+### Formula
 
----
+- **Accuracy**: Binary (1 if correct, 0 if incorrect) or proportional score for the specific test case.
+- **Customer-Centric_Weight_1**: Reflects the difficulty and granularity of getting a scenario fully correct.
+- **Customer-Centric_Weight_2**: Reflects the complexity of language style and context.
 
-## 🚙 1. Vehicle Intent Classification Dataset
+The final score is the average across all evaluated cases.
 
-### 🏷️ Five Major Intent Categories
-1. **Car Control**  
-   Vehicle control commands such as air conditioning, windows, sunroof, lights, and seats.  
-   - Example:  
-     - “Turn on the A/C and set to 25 degrees.”  
-     - “Close the right rear window.”
+#### Customer-Centric_Weight_1 (Granularity of Correctness), alternative weights for Weight_1 is also suggested. 
 
-2. **Travel & Navigation**  
-   Navigation, route planning, traffic info, parking, fuel/charging stations, etc.  
-   - Example:  
-     - “Navigate to the nearest charging station.”  
-     - “How long will it take to get to work tomorrow morning?”
+| Condition                              | Weight | Description                              |
+|----------------------------------------|--------|------------------------------------------|
+| Only 1 of 5 scenarios correct          | 0.3    | Low granularity — broad scenario failure |
+| Only 1 of 208 scenes correct           | 0.5    | Medium granularity                       |
+| Only 1 of 1000 instances correct       | 0.9    | High granularity — near-perfect required |
 
-3. **Search & Information**  
-   Music, weather, restaurant, news, or POI search.  
-   - Example:  
-     - “Play Jay Chou’s songs.”  
-     - “Find good Japanese restaurants nearby.”
+#### Customer-Centric_Weight_2 (Language Style & Context Complexity), alternative weights for Weight_2 is also suggested.
 
-4. **Chit-Chat**  
-   Casual conversations and emotional engagement with the in-car assistant.  
-   - Example:  
-     - “How are you today?”  
-     - “I’m tired, talk to me.”
+| Condition                              | Weight | Description                                      |
+|----------------------------------------|--------|--------------------------------------------------|
+| Standard single sentence correct       | 0.3    | Simple, formal, single-sentence input            |
+| Standard multiple context correct      | 0.5    | Formal language with multi-turn or context       |
+| Colloquial single sentence correct     | 0.7    | Informal/natural language, single sentence       |
+| Colloquial multiple context correct    | 0.9    | Informal/natural language with multi-turn context|
 
-5. **Vehicle Knowledge & Q&A**  
-   Questions about car usage, maintenance, and driving tips.  
-   - Example:  
-     - “What should I do if tire pressure is low?”  
-     - “How to enable cruise control?”
+#### Combined Weights (Weight_1 × Weight_2)
 
-> ✅ Includes **100+ fine-grained intent subcategories**, covering all major in-car voice assistant scenarios.
+| Granularity (Weight_1) | Language/Context (Weight_2)       | Combined Weight | Example Scenario                                      |
+|------------------------|----------------------------------|-----------------|-------------------------------------------------------|
+| 0.3 (5 scenarios)      | 0.3 (Standard single)            | 0.09            | Easiest case, broad failure tolerated                 |
+| 0.3                    | 0.5 (Standard multiple)          | 0.15            |                                                       |
+| 0.3                    | 0.7 (Colloquial single)          | 0.21            |                                                       |
+| 0.3                    | 0.9 (Colloquial multiple)        | 0.27            | Hardest language, but low granularity requirement     |
+| 0.5 (208 scenes)       | 0.3 (Standard single)            | 0.15            |                                                       |
+| 0.5                    | 0.5 (Standard multiple)          | 0.25            |                                                       |
+| 0.5                    | 0.7 (Colloquial single)          | 0.35            |                                                       |
+| 0.5                    | 0.9 (Colloquial multiple)        | 0.45            |                                                       |
+| 0.9 (1000 instances)   | 0.3 (Standard single)            | 0.27            |                                                       |
+| 0.9                    | 0.5 (Standard multiple)          | 0.45            |                                                       |
+| 0.9                    | 0.7 (Colloquial single)          | 0.63            |                                                       |
+| 0.9                    | 0.9 (Colloquial multiple)        | **0.81**        | Highest reward: near-perfect on hard, natural cases   |
 
----
+## Purpose
 
-## 🗣️ 2. In-Vehicle Interactive Agent Dataset
+This scoring system prioritizes:
+- Real customer-like (colloquial, multi-turn) interactions
+- **Fine-grained correctness** over **coarse scenario passes**
+- Higher rewards for excellence in challenging, realistic conditions
 
-This module focuses on **multi-turn interactions** between the user and the in-car assistant, simulating realistic dialogue flow.
+Use this metric when standard accuracy feels disconnected from perceived customer satisfaction.
 
-Each dialogue sample includes:
-- User query or speech transcription  
-- Agent clarification or response  
-- Contextual history tracking  
-- Dialogue type label (Car Control / Travel / Search / Chat / Knowledge)
+## 📊 Customer-Centric DataSet Statistics
 
-**Example:**
-```json
-{
-  "dialogue_id": "T00087",
-  "turns": [
-    {"role": "user", "text": "It’s a bit hot."},
-    {"role": "agent", "text": "Would you like me to lower the temperature?"},
-    {"role": "user", "text": "Yes, set it to 24 degrees."},
-    {"role": "agent", "text": "Got it, setting A/C to 24 degrees now."}
-  ],
-  "category": "Car Control"
-}
-```
+| Module              | Samples  | Avg. Turns | Labels     |
+|---------------------|----------|------------|------------|
+| Standard Samples    | 13.7 K + | 1          | 208 Scenes |
+| Colloquial Sampless | 86.3 K + | 2–5        | 208 Scenes |
 
----
-
-## 🧩 3. Hierarchical In-Vehicle Agent Dataset
-
-This module focuses on **multi-level annotations** to enhance agent understanding, including:
-- 🎧 **Speech Transcription** (manually verified ASR text)
-- 😊 **Emotion Labels** (sentiment and emotional response)
-- 🔁 **Context Understanding** (elliptical intent resolution and history tracking)
-- 🔍 **Fine-Grained Examples** (slot-level and semantic-level details)
-
-**Example:**
-```json
-{
-  "utterance_id": "E10492",
-  "speech_transcription": "Open the window.",
-  "emotion": "calm",
-  "context": "Driver just started the car.",
-  "intent": {
-    "category": "Car Control",
-    "target": "window",
-    "action": "open",
-    "slot": {"position": "driver side"}
-  }
-}
-```
-
----
-
-## 📊 Statistics
-
-| Module | Samples | Avg. Turns | Annotation Dimensions |
-|---------|----------|-------------|------------------------|
-| Intent Classification | 200K+ | Single-turn | Intent Label |
-| Interactive Agent | 100K+ | 2–6 turns | Intent + Response |
-| Hierarchical Agent | 50K+ | Multi-modal | Speech + Emotion + Context |
-
----
 
 ## 💡 Applications
 
-- Vehicle intent recognition & command understanding  
-- Multi-turn dialogue management  
-- Emotion-aware car assistant design  
-- Hierarchical reasoning and contextual agent learning  
-- Multi-modal human–vehicle interaction research  
+- Comfort. Ease. Joy. Yours. Enjoy More Your Life
+
+
+## 📅 Version History
+
+| Version    | Key Features                                                                   | Release    |
+|------------|--------------------------------------------------------------------------------|------------|
+| **V1.0**   | DataSet-V1 and Non-Commercial API Release                                      | 2025 10 16 |
+| **V1.1**   | Benchmark-V1.1, Joint and Personalization Release                              | 2025 10 20 |
+| **V1.2**   | Benchmark-V1.2, Multi-Modal Voice and Emotion Text Language Generation Release | 2025 10 31 |
+| **V1.2.1** | Benchmark-V1.2.1, 200M+ Token with high quailty dataset released               | 2025 11 04 |
+| **V1.2.2** | Benchmark-V1.2.2, Agent-Multi-Modal-Interation-Demo-V0.3 Release               | 2025 11 07 |
+| **C0.1**   | Customer-Centric Interaction Agent-OS in Scenarios and Test Dataset Release    | 2025 12 17 | 
+
 
 ---
-
-## 🧰 Usage
-
-```bash
-# Clone the repository
-git clone https://github.com/your-org/Car-Interaction-Agent-Dataset-V1.git
-
-# Load sample data
-import json
-
-with open('1_intent_classification/data.json', 'r', encoding='utf-8') as f:
-    data = json.load(f)
-    print(data[0])
-```
-
----
-
-## 📅 Version Plan
-
-| Version | Content                                                  | Status     |
-|----------|----------------------------------------------------------|------------|
-| **V1.0** | Base Intent + Multi-turn Dialogue + Hierarchical Dataset | ✅ Released |
-| **V1.1** | Coming Soon                                              | Qct 2025   |
 
 ## 🚀 Getting Started
-- [✅] To apply for dataset downloads for academic research purposes only, please email <a href="mailto:deepreasoninggo@gmail.com">deepreasoninggo@gmail.com</a> **and** <a href="https://drive.google.com/file/d/1F46UhKrqP9TvJAyMzmuk-xWwxcuWWSJj/view?usp=sharing" target="_blank" rel="noopener noreferrer">fill out this form</a>.  
+- [✅] To apply for dataset downloads and customer-centric personlized dataset annotation and api for academic research purposes only, please email <a href="mailto:deepreasoninggo@gmail.com">deepreasoninggo@gmail.com</a> **and** <a href="https://drive.google.com/file/d/1F46UhKrqP9TvJAyMzmuk-xWwxcuWWSJj/view?usp=sharing" target="_blank" rel="noopener noreferrer">fill out this form</a>.  
+- [✅] Sample Customer-Centric in C0.1 Dataset is in Huggingface, Visit [dataset](https://huggingface.co/datasets/deepgo/Customer_Centric_Agent_Benchmark_C0.1)
+## 📜 License
+
+**License:** CC-BY 4.0  
+Free for research and commercial use with proper attribution.
+
 ---
 
-## 🧾 License
+## 📚 Citation
 
-- This dataset is released for **research and commercial use**.  
-- Please cite as:  
-@misc{Di2025_InCarIntelligentInteractionAgentDatasetV1,
-  author       = {Di, Xinhan},
-  title        = {In-Car Intelligent Interaction Agent Dataset V1},
+```bibtex
+@dataset{di2025_incar_interaction_agent_p0_1,
+  author       = {Xinhan Di},
+  title        = {Customer-Centric Agent-OS V0.1},
   year         = {2025},
-  howpublished = {\url{https://scholar.google.com/citations?hl=en&user=CDijR8YAAAAJ}},
-  note         = {Dataset}
+  url          = {https://github.com/your-og/Personlized Interaction Agent-OS V0.1},
+  note         = {Dataset, Version 0.1},
 }
-
+```
 
 ---
 
 ## 🤝 Acknowledgements
 
-Special thanks to all contributors who supported the creation of this dataset and the advancement of in-car intelligent interaction research.
-
----
-
-## 📧 Contact
-
-- Maintainer: [Xinhan Di]  
-- Email: deepreasoningo@gmail.com  
-- GitHub: [https://github.com/your-org/Car-Interaction-Agent-Dataset-V1](https://github.com/your-org/Car-Interaction-Agent-Dataset-V1)
+Special thanks to all annotators, engineers, and collaborators contributing to personlized interaction agent-os V0.1 application.
 
 ---
 
