@@ -59,9 +59,7 @@ The final score is the average across all evaluated cases.
 | Colloquial single sentence correct     | 0.7    | Informal/natural language, single sentence       |
 | Colloquial multiple context correct    | 0.9    | Informal/natural language with multi-turn context|
 
-#### Combined Weights (Weight_1 × Weight_2)
-
-|#### Combined Weights (Weight_1 × Weight_2 × Weight_3)
+#### Combined Weights (Weight_1 × Weight_2 × Weight_3)
 
 | Hardware-Level Empathy (Weight_1) | Correctness (Weight_2)              | Language/Context (Weight_3)              | Combined Weight | Example Scenario                                      |
 |-----------------------------------|-------------------------------------|------------------------------------------|------------------|-------------------------------------------------------|
